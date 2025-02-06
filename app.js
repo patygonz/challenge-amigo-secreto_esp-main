@@ -1,47 +1,42 @@
-// Este código tiene como objetivo fortalecer las habilidades lógicas para la resolución de problemas mediante la manipulación de listas y el DOM.
+let amigos = [];
 
-let listaAmigos = []; // Arreglo para almacenar los nombres de amigos
-
-/**
- * Agrega un nuevo amigo al array de listaAmigos.
- * Valida que el nombre no esté vacío antes de agregarlo y actualiza la lista visual.
- */
-function agregarAmigo() { // Agrega a nuevos amigos
+//Agregar nuevo
+function agregarAmigo() {
   let nombreAmigo = document.getElementById("amigo").value;
 
   if (nombreAmigo.trim() === "") {
-    alert("Nombre inválido, intente de nuevo");
+    alert("Por favor, inserte un nombre");
   } else {
-    listaAmigos.push(nombreAmigo);
-    document.getElementById("amigo").value = "";
-    mostrarListaAmigos();
+    amigos.push(nombreAmigo);
+    document.querySelector("#amigo").value = "";
+    mostrarListaAmigo();
   }
 }
 
-/**
- * Permite mostrar en HTML lista de amigos
- */
-function mostrarListaAmigos() {
-  let contenedorLista = document.querySelector("#listaAmigos");
-  contenedorLista.innerHTML = "";
+//Actualiza el DOM con cada amigo
+function mostrarListaAmigo() {
+  let listaAmigos = document.querySelector("#listaAmigos");
+  listaAmigos.innerHTML = "";
 
-  listaAmigos.forEach(function(amigo) {
-    let elementoLista = document.createElement("li");
-    elementoLista.textContent = amigo;
-    contenedorLista.appendChild(elementoLista);
-  });
+  for (let index = 0; index < amigos.length; index++) {
+    const element = amigos[index];
+
+    let listaHTML = document.createElement("li");
+    listaHTML.textContent = element;
+    listaAmigos.appendChild(listaHTML);
+  }
 }
 
-/**
- * Realiza función aleatoria
- */
-function sortearAmigo() {
-  let totalAmigos = listaAmigos.length;
 
-  if (totalAmigos === 0) {
-    alert("Agregue un nombre antes de iniciar");
+//Sortea aleatoriamente
+
+function sortearAmigo() {
+  let cantidadAmigos = amigos.length;
+  if (cantidadAmigos === 0) {
+    alert("Por favor, inserte un nombre antes de sortear");
   } else {
-    let indiceAleatorio = Math.floor(Math.random() * totalAmigos);
-    document.querySelector("#resultadoSorteo").textContent = listaAmigos[indiceAleatorio];
+    let indiceAmigo = Math.floor(Math.random() * cantidadAmigos);
+    let resultado = document.querySelector("#resultado");
+    resultado.innerHTML = amigos[indiceAmigo];
   }
 }
